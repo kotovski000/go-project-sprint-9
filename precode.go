@@ -57,7 +57,7 @@ func main() {
 		inputCount++
 	})
 
-	const NumOut = 5 // количество обрабатывающих горутин и каналов
+	const NumOut = 10 // количество обрабатывающих горутин и каналов
 	// outs — слайс каналов, куда будут записываться числа из chIn
 	outs := make([]chan int64, NumOut)
 	for i := 0; i < NumOut; i++ {
@@ -97,12 +97,11 @@ func main() {
 	var sum int64   // сумма чисел результирующего канала
 
 	// 5. Читаем числа из результирующего канала
-	go func() {
-		for v := range chOut {
-			count++
-			sum += v
-		}
-	}()
+
+	for v := range chOut {
+		count++
+		sum += v
+	}
 
 	fmt.Println("Количество чисел", inputCount, count)
 	fmt.Println("Сумма чисел", inputSum, sum)
